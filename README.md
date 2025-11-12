@@ -4,19 +4,19 @@ To install dependencies:
 bun install
 ```
 
-To server && client:
+To run server && client:
 
 ```sh
 bun run dev
 ```
 
-To server:
+To run server:
 
 ```sh
 bun run server
 ```
 
-To client:
+To run client:
 
 ```sh
 bun run client
