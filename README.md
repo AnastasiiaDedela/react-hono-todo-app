@@ -1,11 +1,25 @@
 To install dependencies:
+
 ```sh
 bun install
 ```
 
-To run:
+To server && client:
+
 ```sh
 bun run dev
 ```
 
-open http://localhost:3000
+To server:
+
+```sh
+bun run server
+```
+
+To client:
+
+```sh
+bun run client
+```
+
+open http://localhost:5000

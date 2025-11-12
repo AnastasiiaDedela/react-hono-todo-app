@@ -1,0 +1,3 @@
+### Test Bun server
+GET http://localhost:3000
+
