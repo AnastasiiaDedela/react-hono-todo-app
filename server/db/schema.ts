@@ -6,7 +6,7 @@ import {
   varchar,
 } from "drizzle-orm/pg-core";
 
-export const tosos = pgTable("todos", {
+export const todos = pgTable("todos", {
   id: uuid().primaryKey().defaultRandom(),
   title: varchar({ length: 500 }).notNull(),
   description: varchar({ length: 1000 }),

@@ -7,7 +7,8 @@
     "db:up": "docker compose up -d",
     "db:generate": "drizzle-kit generate",
     "db:migrate": "drizzle-kit migrate",
-    "db:studio": "drizzle-kit studio"
+    "db:studio": "drizzle-kit studio",
+    "db:seed": "bun run ./scripts/seed-local-db.script.ts"
   },
   "dependencies": {
     "drizzle-orm": "^0.44.7",
