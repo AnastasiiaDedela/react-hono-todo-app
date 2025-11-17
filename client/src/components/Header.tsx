@@ -6,9 +6,9 @@ import { authClient } from '../lib/auth-client'
 export default function Header() {
   const [isOpen, setIsOpen] = useState(false)
   const router = useRouter()
-  const [error, setError] = useState<string | null>('error')
+  const [error, setError] = useState<string | null>('')
 
-  const { data: session } = authClient.useSession()
+  const { data: session, isPending } = authClient.useSession()
 
   useEffect(() => {
     if (error) {
@@ -77,7 +77,7 @@ export default function Header() {
               className="p-2 transition-colors flex items-center gap-2"
               aria-label={session ? 'Sign out' : 'Sign in'}
             >
-              {session ? (
+              {isPending ? null : session ? (
                 <LogOut
                   size={20}
                   className="hover:text-warning"
