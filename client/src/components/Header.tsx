@@ -1,28 +1,45 @@
 import { Link } from '@tanstack/react-router'
-
 import { useState } from 'react'
-import { Home, Menu, Network, X } from 'lucide-react'
+import { Home, LogIn, LogOut, Menu, Network, X } from 'lucide-react'
+import { authClient } from '../lib/auth-client'
 
 export default function Header() {
   const [isOpen, setIsOpen] = useState(false)
 
   return (
-    <>
-      <header className="p-4 flex items-center bg-gray-800 text-white shadow-lg">
-        <button
-          onClick={() => setIsOpen(true)}
-          className="p-2 hover:bg-gray-700 rounded-lg transition-colors"
-          aria-label="Open menu"
-        >
-          <Menu size={24} />
-        </button>
-        <h1 className="ml-4 font-bold">
-          <Link to="/">TanStack Home</Link>
-        </h1>
+    <div>
+      <header className="px-4 flex items-center bg-gray-800 text-white/70 shadow-lg font-medium">
+        <nav className="navbar">
+          <div className="navbar-start">
+            <button
+              onClick={() => setIsOpen(true)}
+              className="p-2 hover:bg-gray-700 rounded-lg transition-colors"
+              aria-label="Open menu"
+            >
+              <Menu size={24} />
+            </button>
+            <h1 className="ml-4">
+              <Link
+                to="/"
+                activeProps={{ className: 'font-bold text-primary/80' }}
+              >
+                Home
+              </Link>
+            </h1>
 
-        <div className="px-4 font-bold">
-          <Link to="/todos">Todos</Link>
-        </div>
+            <div className="px-4">
+              <Link
+                to="/todos"
+                activeProps={{ className: 'font-bold  text-primary/80' }}
+              >
+                Todos
+              </Link>
+            </div>
+          </div>
+          <div className="navbar-end">
+            <LogIn className="size-5" />
+          </div>
+        </nav>
       </header>
 
       <aside
@@ -73,6 +90,6 @@ export default function Header() {
           {/* Demo Links End */}
         </nav>
       </aside>
-    </>
+    </div>
   )
 }
