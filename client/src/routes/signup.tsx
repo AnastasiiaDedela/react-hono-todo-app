@@ -122,7 +122,7 @@ function RouteComponent() {
                   disabled={loading}
                 />
               </label>
-              <p className="validator-hint hidden">Must be 8 characters long</p>
+              <p className="validator-hint hidden">Min 8 characters long</p>
             </div>
 
             <div>
@@ -140,7 +140,7 @@ function RouteComponent() {
                   disabled={loading}
                 />
               </label>
-              <p className="validator-hint hidden">Must be 8 characters long</p>
+              <p className="validator-hint hidden">Min 8 characters long</p>
             </div>
 
             <div className="card-actions">
