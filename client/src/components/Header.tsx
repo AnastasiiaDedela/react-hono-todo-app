@@ -1,16 +1,50 @@
-import { Link } from '@tanstack/react-router'
-import { useState } from 'react'
+import { Link, useRouter } from '@tanstack/react-router'
+import { useEffect, useState } from 'react'
 import { Home, LogIn, LogOut, Menu, Network, X } from 'lucide-react'
 import { authClient } from '../lib/auth-client'
 
 export default function Header() {
   const [isOpen, setIsOpen] = useState(false)
+  const router = useRouter()
+  const [error, setError] = useState<string | null>('error')
+
+  const { data: session } = authClient.useSession()
+
+  useEffect(() => {
+    if (error) {
+      const timeout = setTimeout(() => {
+        setError('')
+      }, 3000)
+
+      return () => clearTimeout(timeout)
+    }
+  }, [error])
+
+  useEffect(() => {
+    if (session === null) {
+      router.navigate({ to: '/signin' })
+    }
+  }, [session])
+
+  const handleLogin = () => {
+    router.navigate({ to: '/signin' })
+  }
+
+  const handleLogout = async () => {
+    setError('')
+    try {
+      await authClient.signOut()
+    } catch (e) {
+      console.error('Logout failed', e)
+      setError('Failed to logout')
+    }
+  }
 
   return (
     <div>
       <header className="px-4 flex items-center bg-gray-800 text-white/70 shadow-lg font-medium">
-        <nav className="navbar">
-          <div className="navbar-start">
+        <nav className="navbar w-full">
+          <div className="navbar-start flex items-center">
             <button
               onClick={() => setIsOpen(true)}
               className="p-2 hover:bg-gray-700 rounded-lg transition-colors"
@@ -36,10 +70,36 @@ export default function Header() {
               </Link>
             </div>
           </div>
-          <div className="navbar-end">
-            <LogIn className="size-5" />
+
+          <div className="navbar-end pr-2">
+            <button
+              title={session ? 'Sign out' : 'Sign in'}
+              className="p-2 transition-colors flex items-center gap-2"
+              aria-label={session ? 'Sign out' : 'Sign in'}
+            >
+              {session ? (
+                <LogOut
+                  size={20}
+                  className="hover:text-warning"
+                  onClick={handleLogout}
+                />
+              ) : (
+                <LogIn
+                  size={20}
+                  className="hover:text-primary"
+                  onClick={handleLogin}
+                />
+              )}
+            </button>
           </div>
         </nav>
+        {error && (
+          <div className="toast toast-top toast-center">
+            <div className="alert alert-error">
+              <span>{error}</span>
+            </div>
+          </div>
+        )}
       </header>
 
       <aside
