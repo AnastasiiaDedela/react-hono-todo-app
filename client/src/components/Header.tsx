@@ -1,6 +1,14 @@
 import { Link, useRouter } from '@tanstack/react-router'
 import { useEffect, useState } from 'react'
-import { Home, LogIn, LogOut, Menu, Network, X } from 'lucide-react'
+import {
+  Home,
+  LogIn,
+  LogOut,
+  Menu,
+  Network,
+  ShieldAlert,
+  X,
+} from 'lucide-react'
 import { authClient } from '../lib/auth-client'
 
 export default function Header() {
@@ -61,13 +69,22 @@ export default function Header() {
               </Link>
             </h1>
 
-            <div className="px-4">
+            <div className="px-4 flex items-center gap-1">
               <Link
                 to="/todos"
                 activeProps={{ className: 'font-bold  text-primary/80' }}
+                disabled={!session}
               >
                 Todos
               </Link>
+              {!session && (
+                <div
+                  className="tooltip tooltip-bottom"
+                  data-tip="must be signed in to access"
+                >
+                  <ShieldAlert className="size-4 text-warning" />
+                </div>
+              )}
             </div>
           </div>
 
