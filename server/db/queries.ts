@@ -9,3 +9,15 @@ export const getTodosByUserId = async (userId: string) => {
     .where(eq(todos.userId, userId))
     .orderBy(desc(todos.createdAt));
 };
+
+export const createTodo = async (userId: string, title: string) => {
+  const [todo] = await db
+    .insert(todos)
+    .values({
+      userId,
+      title,
+    })
+    .returning();
+
+  return todo;
+};
